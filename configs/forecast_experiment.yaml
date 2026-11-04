@@ -1,0 +1,37 @@
+
+project_name: intelligent-demand-forecasting
+
+dataset:
+  source: m5
+  sales_table: raw.m5_sales_daily
+  calendar_table: raw.m5_calendar
+  prices_table: raw.m5_sell_prices
+
+forecasting:
+  frequency: daily
+  horizon_days: 28
+  target: units_sold
+  series_keys:
+    - store_id
+    - item_id
+
+split:
+  train_end_day: 1857
+  validation_start_day: 1858
+  validation_end_day: 1885
+  test_start_day: 1886
+  test_end_day: 1913
+
+models:
+  baseline: seasonal_naive
+  machine_learning: lightgbm
+
+evaluation:
+  metrics:
+    - wape
+    - mase
+    - bias
+
+execution:
+  batch_size: 50
+  random_seed: 42
